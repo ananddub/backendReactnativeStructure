@@ -1,3 +1,5 @@
+import { localDatabase } from "./variables";
+
 const mysql = require("mysql");
 const fs = require("fs");
 const path = require("path");
@@ -14,7 +16,7 @@ export const curSession = (): string => {
 };
 
 export async function sqlQuerys(query: string) {
-  const db = mysql.createConnection(databaseID);
+  const db = mysql.createConnection(localDatabase);
 
   try {
     await new Promise((resolve, reject) => {
