@@ -1,17 +1,14 @@
 import { Socket } from "socket.io";
 import { dbActive } from "../../../../../services/socketFun";
 import { io } from "../../../../server";
-import {
-  sqlQueryStatus,
-  sqlQueryUpdate,
-} from "../../../../../services/sqlfunctoin";
+import { sqlQuery, sqlQueryUpdate } from "../../../../../services/sqlfunctoin";
 
 export const getAdminChat = async (
   socket: Socket,
   response: { admin: string; pass: string }
 ) => {
   const query = "SELECT  *  FROM tbl_adminannounce ORDER BY messageid DESC";
-  const data = await sqlQueryStatus(query);
+  const data: any = await sqlQuery(query);
   console.log(data);
   socket.emit("getAdminChat", { data: data.data });
 };
@@ -20,7 +17,7 @@ export const adminSendchat = async (
   response: any
 ): Promise<void> => {
   console.log("repsponse :", response);
-  if (Array.isArray(response.to) === true) {
+  if (Array.isArray(response.to) === true && response.to[0] !== "all") {
     let i = 0;
     for (let admno of response.to) {
       const insert = `INSERT INTO tbl_adminannounce (message,\`from\`, \`to\`,name,fname,mclass,msec,mroll) 
