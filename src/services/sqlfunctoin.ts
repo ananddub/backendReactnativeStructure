@@ -44,6 +44,34 @@ export async function sqlQuerys(query: string) {
   }
 }
 
+export async function sqlQueryp(query: string) {
+  const db = mysql.createConnection(databaseID);
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.connect((err: any) => {
+        if (err) reject(err);
+        resolve("done");
+        console.log("Connected to database");
+      });
+    });
+
+    const value: [] = await new Promise((resolve, reject) => {
+      db.query(query, (err: any, result: any) => {
+        if (err) reject(err);
+        resolve(result);
+      });
+    });
+    console.log("conection end");
+    return value;
+  } catch (err) {
+    console.error("Error:", err);
+    console.log("conection end");
+    return [];
+  } finally {
+    db.end();
+  }
+}
 export async function sqlQuery(query: string) {
   const db = mysql.createConnection(databaseID);
 

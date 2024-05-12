@@ -2,6 +2,7 @@ import { imageExist } from "../../../../services/ImageSaveRetrive";
 import {
   curSession,
   sqlQueryStatus,
+  sqlQueryp,
   sqlQuerys,
 } from "../../../../services/sqlfunctoin";
 
@@ -46,6 +47,7 @@ function calulatePhotse(data: any) {
     photodone: 0,
     totalSec: [],
   };
+  console.log(data);
   for (let x of data) {
     if (obj[x.section] === undefined) {
       obj[x.section] = {
@@ -130,7 +132,8 @@ export async function getTotalPhoto(req: any, res: any) {
   let total = 0;
   for (let x of classarr) {
     const query = `SELECT admno,section  FROM tbl_admission WHERE class="${x}" AND session="${curSession()}" AND active=1 ORDER BY section ASC;`;
-    classvalue[x] = calulatePhotse(await sqlQuerys(query));
+
+    classvalue[x] = calulatePhotse(await sqlQueryp(query));
     stdPhoto.saveClass(x, classvalue[x]);
   }
   console.log(stdPhoto.getdata());
