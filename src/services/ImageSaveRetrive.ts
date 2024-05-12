@@ -20,3 +20,8 @@ export function getImage(admno: string): string {
     return "";
   }
 }
+
+export const imageExist = (admno: string) => {
+  const imagePath = path.join(__dirname, `${IMAGEADD}/${admno}`);
+  return fs.existsSync(imagePath);
+};

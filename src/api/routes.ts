@@ -6,6 +6,7 @@ import {
 import { paymentDetails } from "./components/HTTPSERVER/payment/paymentDetail";
 import { dueslist } from "./components/HTTPSERVER/user/dues";
 import { searchStd } from "./components/HTTPSERVER/user/finduser";
+import { getTotalPhoto } from "./components/HTTPSERVER/user/totalphoto";
 import { basicDetail } from "./components/HTTPSERVER/user/userDetail";
 import { socketRoutes } from "./components/Socket/routes";
 import { multerImageupload } from "./middleware/multerImageupload";
@@ -19,6 +20,7 @@ app.get("/paymentDetails", paymentDetails);
 app.get("/BasicDetails", basicDetail);
 app.get("/searchstd", searchStd);
 app.get("/dues", dueslist);
+app.get("/totalphoto", getTotalPhoto);
 app.get("/", (req: any, res: any) => {
   res.sendFile("../../dist/index.html");
 });
